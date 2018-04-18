@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    #box,
+    #box2 {
+        max-width: 414px;
+        height: 480px;
+        overflow: auto;
+        margin: 20px 0;
+        border: 2px solid #000;
+    }
+    
+    .shape {
+        width: 30px;
+        height: 340px;
+        float: left;
+        shape-outside: polygon(0 0, 0 150px, 16px 154px, 30px 166px, 30px 314px, 16px 326px, 0 330px, 0 0);
+        transition: shape-outside .1s;
+    }
+    
+    .liuhai {
+        width: 24px;
+        height: 180px;
+        background: url(./img/liu.png) no-repeat left center;
+        position: absolute;
+        margin-top: 150px;
+    }
+    
+    li {
+        line-height: 25px;
+        border-bottom: 1px solid #ccc;
+    }
+    
+    #shape2 {
+        float: left;
+        width: 30px;
+        height: 180px;
+        /* 这种方法有问题 */
+        /*shape-outside: url(./img/liu-outside.png);*/
+        margin-top: 150px;
+        transition: margin-top .1s;
+    }
+    
+    .liuhai2 {
+        width: 24px;
+        height: 180px;
+        background: url(./img/liu.png) no-repeat left center;
+        position: absolute;
+        margin-top: 150px;
+        left: 0;
+    }
+</style>
+<style>
+    .ball {
+        width: 100px;
+        height: 100px;
+        border-radius: 100%;
+        border: 1px solid #000;
+    }
+    
+    .ball1 {
+        background: red;
+    }
+    
+    .ball2 {
+        background: blue;
+    }
+    
+    .ball3 {
+        background: yellow;
+    }
+</style>
+
+<body>
+    <h5>方式1</h5>
+    <div id="box">
+        <span class="shape" id="shape"></span>
+        <i class="liuhai"></i>
+        <div id="content">
+            <ul>
+                <li>1aaaaaa</li>
+                <li>2aaaaaa</li>
+                <li>3aaaaaa</li>
+                <li>4aaaaaa</li>
+                <li>5aaaaaa</li>
+                <li>6aaaaaa</li>
+                <li>7aaaaaa</li>
+                <li>8aaaaaa</li>
+                <li>9aaaaaa</li>
+                <li>10aaaaaa</li>
+                <li>11aaaaaa</li>
+                <li>12aaaaaa</li>
+                <li>13aaaaaa</li>
+                <li>14aaaaaa</li>
+                <li>15aaaaaa</li>
+                <li>16aaaaaa</li>
+                <li>17aaaaaa</li>
+                <li>18aaaaaa</li>
+                <li>19aaaaaa</li>
+                <li>20aaaaaa</li>
+                <li>21aaaaaa</li>
+                <li>22aaaaaa</li>
+                <li>23aaaaaa</li>
+                <li>24aaaaaa</li>
+                <li>25aaaaaa</li>
+                <li>26aaaaaa</li>
+                <li>27aaaaaa</li>
+                <li>28aaaaaa</li>
+                <li>29aaaaaa</li>
+                <li>30aaaaaa</li>
+                <li>31aaaaaa</li>
+                <li>32aaaaaa</li>
+                <li>33aaaaaa</li>
+                <li>34aaaaaa</li>
+                <li>35aaaaaa</li>
+                <li>36aaaaaa</li>
+                <li>37aaaaaa</li>
+                <li>38aaaaaa</li>
+                <li>39aaaaaa</li>
+                <li>40aaaaaa</li>
+            </ul>
+        </div>
+    </div>
+    <h5>方式2</h5>
+    <div id="box2">
+        <span id="shape2"></span>
+        <i class="liuhai2"></i>
+        <div id="content2">
+            <ul>
+                <li>1bbbbb</li>
+                <li>2bbbbb</li>
+                <li>3bbbbb</li>
+                <li>4bbbbb</li>
+                <li>5bbbbb</li>
+                <li>6bbbbb</li>
+                <li>7bbbbb</li>
+                <li>8bbbbb</li>
+                <li>9bbbbb</li>
+                <li>10bbbbb</li>
+                <li>11bbbbb</li>
+                <li>12bbbbb</li>
+                <li>13bbbbb</li>
+                <li>14bbbbb</li>
+                <li>15bbbbb</li>
+                <li>16bbbbb</li>
+                <li>17bbbbb</li>
+                <li>18bbbbb</li>
+                <li>19bbbbb</li>
+                <li>20bbbbb</li>
+                <li>21bbbbb</li>
+                <li>22bbbbb</li>
+                <li>23bbbbb</li>
+                <li>24bbbbb</li>
+                <li>25bbbbb</li>
+                <li>26bbbbb</li>
+                <li>27bbbbb</li>
+                <li>28bbbbb</li>
+                <li>29bbbbb</li>
+                <li>30bbbbb</li>
+                <li>31bbbbb</li>
+                <li>32bbbbb</li>
+                <li>33bbbbb</li>
+                <li>34bbbbb</li>
+                <li>35bbbbb</li>
+                <li>36bbbbb</li>
+                <li>37bbbbb</li>
+                <li>38bbbbb</li>
+                <li>39bbbbb</li>
+                <li>40bbbbb</li>
+            </ul>
+        </div>
+    </div>
+    <div class="ball ball1" style="margin-left:0;"></div>
+    <div class="ball ball2" style="margin-left:0;"></div>
+    <div class="ball ball3" style="margin-left:0;"></div>
+    <video src="" id="myPic"></video>
+</body>
+<script>
+    // method 1
+    var shape = document.getElementById('shape');
+    var box = document.getElementById('box');
+    shape.style.height = box.scrollHeight + 'px';
+    box.addEventListener('scroll', function() {
+            var sTop = box.scrollTop;
+            shape.style.shapeOutside = 'polygon(0 0, 0 ' + (150 + sTop) + 'px, 16px ' + (154 + sTop) + 'px, 30px ' + (166 + sTop) + 'px, 30px ' + (314 + sTop) + 'px, 16px ' + (326 + sTop) + 'px, 0 ' + (330 + sTop) + 'px, 0 0)';
+        })
+        // method 2
+    var shape2 = document.getElementById('shape2');
+    var box2 = document.getElementById('box2');
+    box2.addEventListener('scroll', function() {
+        var sTop = box2.scrollTop;
+        shape2.style.marginTop = (150 + sTop) + 'px';
+    })
+</script>
+<script src="node_modules/bluebird/js/browser/bluebird.js"></script>
+<script>
+    // Promise
+    var Promise = window.Promise
+
+    function promiseAnimation(ball, distance) {
+        return new Promise(function(resolve, reject) {
+            function move() {
+                setTimeout(function() {
+                    var marginLeft = parseInt(ball.style.marginLeft, 10);
+                    if (marginLeft === distance) {
+                        resolve();
+                    } else {
+                        if (marginLeft < distance) {
+                            marginLeft++;
+                        } else {
+                            marginLeft--;
+                        }
+                        ball.style.marginLeft = marginLeft + 'px';
+                        move();
+                    }
+                }, 1);
+            }
+            move();
+        })
+    }
+    var ball1 = document.querySelector('.ball1');
+    var ball2 = document.querySelector('.ball2');
+    var ball3 = document.querySelector('.ball3');
+    promiseAnimation(ball1, 100)
+        .then(function() {
+            return promiseAnimation(ball2, 200);
+        })
+        .then(function() {
+            return promiseAnimation(ball3, 300);
+        })
+        .then(function() {
+            return promiseAnimation(ball3, 100);
+        })
+        .then(function() {
+            return promiseAnimation(ball2, 100);
+        })
+        .then(function() {
+            return promiseAnimation(ball1, 100);
+        })
+</script>
+
+
+</html>

@@ -1,0 +1,356 @@
+/*
+        styl转换成css：stylus [--compile] 目录名/; （如：stylus styl/）
+        css转换成styl: stylus --css 目录名/*.css 目录名/*.styl
+        css属性帮助： stylus help box-shadow
+        输出基本名一致的.styl: stylus --css test.css
+        监控styl文件: stylus -w styl/index.styl
+        编译到指定文件中 stylus styl文件 --out css文件
+*/
+body,
+html,
+* {
+  margin: 0;
+  padding: 0;
+/* font: font-size / line-height*/
+  font: 14px/1.5;
+}
+body {
+  background-size: 100% 100%;
+}
+body a {
+  font: 9.333333333333334px;
+  text-decoration: none;
+  color: #00f;
+}
+#top {
+  box-sizing: border-box;
+  position: absolute;
+  left: 0px;
+  top: 5px;
+  width: 100%;
+  padding: 10px;
+  color: #4493ba;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  border: 5px solid #acd1e9;
+}
+#top .logo {
+  float: left;
+  width: 80px;
+  margin-right: 150px;
+}
+#top span {
+  float: left;
+  color: #009b72;
+  margin: 0 30px;
+  cursor: pointer;
+  -webkit-transition: transform 1s linear;
+}
+#top span:hover {
+  -webkit-transform: scale(1.2);
+}
+#banner {
+  margin-top: 52px;
+  width: 100%;
+  height: 400px;
+}
+/*nesting 嵌套*/
+#main #left {
+  float: left;
+  width: 70%;
+  color: #f00;
+  font-size: 14px;
+  background: url("../img/15.jpg") no-repeat left center;
+}
+#main #right {
+  float: left;
+  width: 30%;
+}
+#main #right #login {
+  height: 300px;
+  -webkit-box-shadow: 1px 2px 3px #c6c6c4;
+  -moz-box-shadow: 1px 2px 3px #c6c6c4;
+  box-shadow: 1px 2px 3px #c6c6c4;
+  border: 2px solid #c6c6c4;
+}
+#main #right #login button.button,
+#main #right #login input[type="submit"] {
+  border: none;
+  color: #fff;
+  width: 40%;
+  height: 30px;
+}
+footer {
+  clear: both;
+  height: 100px;
+  background: #f2f6f5;
+}
+footer #logo {
+  font-size: 14px;
+  border-bottom: 2px solid #dee9e6;
+  color: #83b3a7;
+}
+footer #logo:hover {
+  font-weight: bold;
+  padding: -5px;
+}
+nav {
+  height: 305px;
+  color: #00bcd4;
+  font: #00bcd4 "Lucida Grande", Arial;
+  background: rgba(183,214,232,0.5);
+}
+#tip {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  color: #00bcd4;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+  border: 6px solid #fff;
+  border-left: 6px solid rgba(251,33,131,0.9);
+  border-right: 6px solid rgba(251,33,131,0.9);
+  opacity: 0.9;
+  border-radius: 100%;
+  -webkit-animation: spinoffPulse 20s infinite linear;
+}
+#tip2 {
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  color: #00bcd4;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -40px;
+  margin-top: -40px;
+  border: 6px solid #fff;
+  border-left: 6px solid #3082b0;
+  border-right: 6px solid #3082b0;
+  opacity: 0.9;
+  border-radius: 100%;
+  -webkit-animation: spinoffPulse 20s infinite linear;
+  border: 6px solid #fff;
+  border-top: 6px solid #3082b0;
+  border-bottom: 6px solid #3082b0;
+  background: rgba(183,214,232,0.5);
+}
+@-webkit-keyframes spinoffPulse {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+#list,
+#list2 {
+  clear: both;
+  margin: 10px 0;
+}
+#list li,
+#list2 li {
+  width: 800px;
+  color: #348db8;
+  padding: 10px;
+  list-style: none;
+  border-bottom: 1px solid #ccc;
+  transform: translate3d(200px, 0px, 0) skewY(0deg);
+  -webkit-transform: translate3d(200px, 0px, 0) skewY(0deg);
+  -moz-transform: translate3d(200px, 0px, 0) skewY(0deg);
+  -ms-transform: translate3d(200px, 0px, 0) skewY(0deg);
+}
+#list li:hover,
+#list2 li:hover {
+  border-color: #fa2284;
+}
+#list .btn,
+#list2 .btn {
+  float: right;
+  color: #fff;
+  background: #fa2284;
+  padding: 0 30px;
+}
+#list .btn:hover,
+#list2 .btn:hover {
+  font-weight: bold;
+}
+#pageBtn {
+  text-align: center;
+  margin: 10px 0;
+}
+#prevPage,
+#nextPage {
+  display: inline-block;
+  width: 200px;
+  height: 30px;
+  margin: 0 20px;
+  border: 2px solid #fa2284;
+  color: #fa2284;
+  text-align: center;
+  line-height: 30px;
+}
+#prevPage:hover,
+#nextPage:hover {
+  font-weight: bold;
+}
+#myTable tr:nth-child(0) {
+  height: 0px;
+}
+#myTable tr:nth-child(1) {
+  height: 10px;
+}
+#myTable tr:nth-child(2) {
+  height: 20px;
+}
+#myTable2 tr:nth-child(1) {
+  border: 2px solid #000;
+  width: 9px;
+  height: 10px;
+  font: 16px /*加括号表示32÷2*/;
+  font-weight: 256;
+  color: #00f;
+}
+#myTable2 tr:nth-child(2) {
+  border: 3px solid #000;
+  width: 8px;
+  height: 20px;
+  font: 16px /*加括号表示32÷2*/;
+  font-weight: 400 /*is not 或者 isnt 表示(!=) , **表示指数 256*/;
+  color: #00f;
+}
+#myTable2 tr:nth-child(3) {
+  border: 4px solid #000;
+  width: 7px;
+  height: 30px;
+  font: 16px /*加括号表示32÷2*/;
+  font-weight: 256;
+  color: #f00;
+}
+#myTable2 tr:nth-child(4) {
+  border: 5px solid #000;
+  width: 6px;
+  height: 40px;
+  font: 16px /*加括号表示32÷2*/;
+  font-weight: 256;
+  color: #f00;
+}
+#num {
+  color: #f00;
+/*一个未定义的标识符仍是真值*/
+  padding: 5px;
+}
+/*混合书写*/
+/*私有前缀*/
+#menu {
+  clear: both;
+  height: 100px;
+}
+#menu .testIe {
+  float: left;
+  width: 24%;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  margin: 5px;
+  background: #98c0b7;
+}
+#menu .testIe .info {
+  color: #fff;
+  background: #000;
+  opacity: 0.5;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  transition: all 1s linear;
+  -webkit-transition: all 1s linear;
+  -moz-transition: all 1s linear;
+  -ms-transition: all 1s linear;
+  transform: scale(0, 0);
+  -webkit-transform: scale(0, 0);
+  -moz-transform: scale(0, 0);
+  -ms-transform: scale(0, 0);
+}
+#menu .testIe:hover .info {
+  transform: scale(1, 1);
+  -webkit-transform: scale(1, 1);
+  -moz-transform: scale(1, 1);
+  -ms-transform: scale(1, 1);
+}
+/*父级引用*/
+#login #stripeTable {
+  width: 70%;
+  margin: 0 auto;
+}
+#login #stripeTable tr {
+  background-color: transparent;
+}
+#login #stripeTable tr.even,
+#login #stripeTable tr:nth-child(even) {
+  background-color: transparent;
+}
+#login #stripeTable td {
+  height: 30px;
+}
+#login #stripeTable td:nth-child(1) {
+  color: #4c9ac0;
+}
+/*制作特定无序列表*/
+#list li:before,
+#list2 li:before {
+  content: '*';
+}
+#list li:after,
+#list2 li:after {
+  content: ',';
+}
+/*方法*/
+#list,
+#list2 {
+  margin: 4px;
+  padding: 10px;
+}
+#list,
+#list2 {
+  background: url("./bg.jpg");
+}
+/*内置方法
+    red(color) green(color) blue(color) alpha(color)
+    push(expr, args..)  unshift(expr, args)
+        var nums = 1 2
+        push(nums, 3, 4, 5) => 12345
+        unshift(nums, 3,2,1) => 12345
+    keys(pairs)
+        pairs = (one 1) (two 2) (three 3)
+        keys(pairs) => one two three
+    values(pairs)
+    typeof(node)
+        typeof(12) => 'unit'
+        typeof(#fff) => 'rgba'
+    unit('unit'[, type])
+        unit(11, px)
+    match(reg, string)
+        match('^foo(bar?', foo)) => true
+    abs(unit) ceil floor round min(a, b) max(a, b)
+        abs(-5px) => 5px
+    even(unit) odd(unit) sum(nums) avg(nums)
+        sum(1 2 3) => 6
+    join(delim, vals)
+        join('-', 1 2 3) => 1-2-3
+    hsla(color | h,s,l,a) 颜色|比重值 rgba(color | h,s,l,a)
+        rgba(255,0,0,1) => #f00
+        rgba(#f00, 0.5) => rgba(255,0,0,0.5)
+    unquote(str | indet)
+    
+    length(expr)
+        length(1 2 3) => 3
+    
+
+    
+    */
+
+      #list3 {
+          color: red
+      }

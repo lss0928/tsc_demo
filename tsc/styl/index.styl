@@ -1,0 +1,326 @@
+/*
+        styl转换成css：stylus [--compile] 目录名/; （如：stylus styl/）
+        css转换成styl: stylus --css 目录名/*.css 目录名/*.styl
+        css属性帮助： stylus help box-shadow
+        输出基本名一致的.styl: stylus --css test.css
+        监控styl文件: stylus -w styl/index.styl
+        编译到指定文件中 stylus styl文件 --out css文件
+*/
+// @import 'nib'
+// 选择器
+body, html, *
+    // box-sizing: border-box
+    margin: 0
+    padding: 0
+    /* font: font-size / line-height*/
+    font: 14px / 1.5
+body
+    // background: url('../img/21474030_131219178001_2.jpg') no-repeat left center
+    background-size: 100% 100%
+body a
+    // 同上比较差别
+    font: (14px / 1.5)
+    text-decoration: none
+    color: #00f;
+
+radius()
+    -webkit-border-radius: arguments
+    -moz-border-radius: arguments
+    border-radius: arguments
+
+-pos(type, args)
+    i = 0
+    position: unquote(type)
+    {args[i]} : args[i + 1] is a 'unit' ? args[i += 1] : 0
+    {args[i += 1]}: args[i + 1] is a 'unit' ? args[i += 1] : 0
+    
+absolute()
+    -pos('absolute', arguments)
+fixed()
+    -pos('fixed', arguments)
+#top
+    box-sizing border-box
+    absolute: left 0px top 5px
+    width: 100%
+    padding: 10px
+    color: #4493ba
+    radius: 2px
+    border: 5px solid #acd1e9
+    .logo
+        float: left
+        width: 80px
+        margin-right 150px
+    span
+        float: left
+        color: #009B72
+        margin: 0 30px
+        cursor pointer
+        -webkit-transition: transform 1s linear
+        &:hover
+            -webkit-transform: scale(1.2)
+#banner
+    margin-top 52px
+    width: 100%
+    height: 400px
+/*nesting 嵌套*/
+#main
+    #left
+        float: left
+        width: 70%
+        color: red
+        font-size: 14px
+        background: url('../img/15.jpg') no-repeat left center
+box-shadow()
+    -webkit-box-shadow arguments
+    -moz-box-shadow arguments
+    box-shadow arguments
+    border 2px solid arguments[length(arguments) - 1]
+#main
+    #right
+        float: left
+        width 30%
+        #login
+            height 300px
+            box-shadow 1px 2px 3px #c6c6c4;
+            button.button
+            input[type="submit"]
+                border: none
+                color: #fff
+                width: 40%
+                height: 30px
+
+// 括号包裹表达式
+pad(n)
+    padding (- n)
+footer
+    clear: both
+    height 100px
+    background: #f2f6f5
+    #logo
+        font-size: 14px
+        // 可以省略冒号，分号
+        border-bottom 2px solid #dee9e6
+        color: #83b3a7
+        &:hover
+            font-weight: bold
+            pad(5px)
+// 变量
+color1 = #00bcd4
+font1 = color1 "Lucida Grande", Arial
+$bg1 = rgba(183, 214, 232, 0.5) 
+nav
+    height: 305px
+    color color1
+    font font1
+    background $bg1
+center()
+    absolute(left 50% top 50%)
+    margin-left: -(@width / 2)
+    margin-top: -(@height / 2)
+
+tipStyle(w, h, color)
+    width w
+    height h
+    text-align: center
+    color color1
+    center @width @height
+    border: 6px solid #fff 
+    border-left: 6px solid color
+    border-right: 6px solid color
+    opacity: .9
+    border-radius: 100%
+    -webkit-animation: spinoffPulse 20s infinite linear
+
+#tip
+    tipStyle 100px 100px rgba(251, 33, 131, 0.9)
+    
+#tip2
+    tipStyle 80px 80px rgba(48, 130, 176, 1)
+    border: 6px solid #fff 
+    border-top: 6px solid rgba(48, 130, 176, 1)
+    border-bottom: 6px solid rgba(48, 130, 176, 1)
+    background $bg1
+
+@-webkit-keyframes spinoffPulse
+    0%
+        -webkit-transform: rotate(0deg)
+    100%
+        -webkit-transform: rotate(360deg)
+// 插值
+vendor(prop, args)
+    // 私有前缀属性扩展
+    {prop} args
+    -webkit-{prop} args
+    -moz-{prop} args
+    -ms-{prop} args
+#list
+    clear: both
+    margin: 10px 0
+    li
+        width: 800px
+        color: #348db8
+        padding: 10px
+        list-style: none
+        border-bottom 1px solid #ccc
+        vendor transform (translate3d(200px, 0px, 0) skewY(0deg))
+        &:hover
+            border-color #fa2284
+    .btn
+        float right
+        color: #fff
+        background: #fa2284
+        padding: 0 30px
+        &:hover
+            font-weight bold
+#pageBtn
+    text-align center
+    margin: 10px 0
+#prevPage
+    display inline-block
+    width: 200px
+    height: 30px
+    margin: 0 20px
+    border: 2px solid #fa2284
+    color: #fa2284
+    text-align center
+    line-height @height
+    &:hover
+        font-weight bold
+#nextPage
+    @extend #prevPage
+
+#myTable
+    for row in 0 1 2
+        tr:nth-child({row})
+            height: 10px * row
+// 运算符
+#myTable2
+    for row in 1...5
+        tr:nth-child({row})
+            border: 1px + (row)px solid #000
+            width: 10px - (row)px
+            height: 10px * row
+            font: (32px / 2) /*加括号表示32÷2*/
+            font-weight: row is not 2 ? (2**8) : 400 /*is not 或者 isnt 表示(!=) , **表示指数 256*/
+            color: row in 3..5 ? red : blue
+#num
+    color: red
+    /*一个未定义的标识符仍是真值*/
+    if ohnoes isnt defined
+        padding 5px
+/*混合书写*/
+/*私有前缀*/
+opacity(n)
+  opacity n
+  if support-for-ie
+    filter unquote('progid:DXImageTransform.Microsoft.Alpha(Opacity=' + round(n * 100) + ')')
+#menu
+    clear: both
+    height: 100px
+    .testIe
+        float: left
+        width: 24%
+        height: 100px
+        text-align: center
+        line-height 100px
+        margin: 5px
+        background: #98c0b7
+        .info
+            color: #fff
+            background: #000
+            // border-radius: 100%
+            opacity(.5)
+            vendor transition (all 1s linear) // IE不支持
+            vendor transform scale(0, 0)
+        &:hover
+            .info
+                vendor transform scale(1, 1)
+/*父级引用*/
+stripe(even = #fff, odd = #eee)
+    tr
+        background-color odd
+        &.even
+        &:nth-child(even)
+            background-color even
+#login
+    #stripeTable
+        width 70%
+        margin: 0 auto
+        stripe(transparent, transparent)
+        td
+            height: 30px
+        td:nth-child(1)
+            color #4c9ac0
+/*制作特定无序列表*/
+comma-list()
+    li
+        &:before
+            content '*'
+        &:after
+            content ','
+#list
+    comma-list()
+/*方法*/
+add(a, b = a)
+    // 通过内置unit()把单位都变成px, 
+    a = unit(a, px)
+    b = unit(b, px)
+    // 返回多个值
+    if a > b
+        a - b 10px
+    else if a < b
+        b - a 20px
+    else
+        30px 30px
+#list
+    margin add(5%, 1deg)[0]
+    padding add(5%, 1deg)[1]
+
+stringish(val)
+    if val is a 'string' or val is a 'ident'
+        yes
+    else
+        no
+#list
+    background url(stringish('./bg.jpg') == yes ? './bg.jpg' : '')
+#list2
+    @extend #list
+/*内置方法
+    red(color) green(color) blue(color) alpha(color)
+    push(expr, args..)  unshift(expr, args)
+        var nums = 1 2
+        push(nums, 3, 4, 5) => 12345
+        unshift(nums, 3,2,1) => 12345
+    keys(pairs)
+        pairs = (one 1) (two 2) (three 3)
+        keys(pairs) => one two three
+    values(pairs)
+    typeof(node)
+        typeof(12) => 'unit'
+        typeof(#fff) => 'rgba'
+    unit('unit'[, type])
+        unit(11, px)
+    match(reg, string)
+        match('^foo(bar?', foo)) => true
+    abs(unit) ceil floor round min(a, b) max(a, b)
+        abs(-5px) => 5px
+    even(unit) odd(unit) sum(nums) avg(nums)
+        sum(1 2 3) => 6
+    join(delim, vals)
+        join('-', 1 2 3) => 1-2-3
+    hsla(color | h,s,l,a) 颜色|比重值 rgba(color | h,s,l,a)
+        rgba(255,0,0,1) => #f00
+        rgba(#f00, 0.5) => rgba(255,0,0,0.5)
+    unquote(str | indet)
+    
+    length(expr)
+        length(1 2 3) => 3
+    
+
+    
+    */
+    @css {
+        #list3 {
+            color: red
+        }
+    }

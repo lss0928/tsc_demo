@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<style>
+    ul {
+        list-style: url(security.gif);
+        color: rgba(199, 228, 231, 0.85)
+    }
+    
+    canvas {
+        width: 100px;
+        height: 100px;
+    }
+</style>
+
+<body>
+    <h6 id="title"></h6>
+    <video autoplay id="video" width="200" height="150"></video>
+    <canvas width="200" height="150"></canvas>
+    <button id="taskPhone">拍照</button>
+    <input type="file" multiple="multiple" accept="image/*" capture="camera">
+    <p>
+        <button id="snap">截取图像</button><br>
+        <button id="open">打开摄像头和麦克风</button>
+        <button id="close">关闭摄像头</button>
+        <button id="close2">关闭麦克风</button><br>
+        <button id="upload">上传图像</button>
+    </p>
+
+    <img id="uploaded" width="200" height="150" />
+</body>
+<script src="node_modules/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+    alert(navigator.userAgent);
+
+    function $(elem) {
+        return document.querySelector(elem);
+    }
+
+    // 获取媒体方法（旧方法）
+    navigator.getMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMeddia || navigator.msGetUserMedia;
+
+    var canvas = $('canvas'),
+        title = $('#title'),
+        context = canvas.getContext('2d'),
+        video = $('video'),
+        snap = $('#snap'),
+        open = $('#open'),
+        close = $('#close'),
+        close2 = $('#close2'),
+        upload = $('#upload'),
+        uploaded = $('#uploaded'),
+        mediaStreamTrack,
+        audioStreamTrack;
+
+    // openCamera();
+    // 获取媒体方法（新方法）
+    function openCamera() {
+
+        // 使用新方法打开摄像头
+        if (navigator.getMedia) {
+            // alert(typeof navigator.getMedia);
+            navigator.getMedia({
+                video: true
+            }, function(stream) {
+                title.innerHTML = '使用旧方法打开摄像头';
+                console.log(stream);
+                mediaStreamTrack = stream.getTracks()[0];
+                audioStreamTrack = stream.getTracks()[1];
+
+                video.src = (window.URL || window.webkitURL).createObjectURL(stream);
+                video.play();
+            }, function(err) {
+                console.log(err);
+            });
+        } else if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: true
+            }).then(function(stream) {
+                title.innerHTML = '使用新方法打开摄像头';
+                mediaStreamTrack = typeof stream.stop === 'function' ?
+                    stream : stream.getTracks()[1];
+                audioStreamTrack = stream.getTracks()[0];
+                video.src = (window.URL || window.webkitURL).createObjectURL(stream);
+                video.play();
+            }).catch(function(err) {
+                console.log(err);
+            })
+        } else {
+            alert('您的浏览器暂不支持');
+        }
+    }
+
+    function openCamera2() {
+        var getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+        getUserMedia.call(navigator, {
+            video: true,
+            audio: true
+        }, function(localMediaStream) {
+            var video = document.getElementById('video');
+            video.src = window.URL.createObjectURL(localMediaStream);
+            video.onloadedmetadata = function(e) {
+                console.log("Label: " + localMediaStream.label);
+                console.log("AudioTracks", localMediaStream.getAudioTracks());
+                console.log("VideoTracks", localMediaStream.getVideoTracks());
+            };
+        }, function(e) {
+            console.log('Reeeejected!', e);
+        });
+    }
+
+    // 截取图像
+    snap.addEventListener('click', function() {
+        context.drawImage(video, 0, 0, 200, 150);
+    }, false);
+    // 打开摄像头
+    open.addEventListener('click', function() {
+        openCamera();
+    }, false);
+    // 关闭摄像头
+    close.addEventListener('click', function() {
+        mediaStreamTrack && mediaStreamTrack.stop();
+    }, false);
+
+    // 关闭麦克风
+    close2.addEventListener('click', function() {
+        audioStreamTrack && audioStreamTrack.stop();
+    }, false);
+
+    // 上传截取的图像
+    upload.addEventListener('click', function() {
+        uploaded.src = canvas.toDataURL('image/png');
+        resData = {
+            "result_num": 1, // 人脸数目
+            "result": [{ // 人脸属性对象的集合
+                "location": { // 人脸在图片中的位置
+                    "left": 117,
+                    "top": 131,
+                    "width": 172,
+                    "height": 170
+                },
+                "face_probability": 1, // 人脸置信度，范围0-1
+                "rotation_angle": 2,
+                "yaw": -0.34859421849251,
+                "pitch": 2.3033397197723,
+                "roll": 1.9135693311691,
+                "landmark": [{
+                    "x": 161.74819946289,
+                    "y": 163.30244445801
+                }],
+                "landmark72": [{
+                    "x": 115.86531066895,
+                    "y": 170.0546875
+                }],
+                "age": 29.298097610474, // 年龄
+                "beauty": 55.128883361816,
+                "expression": 1, // 表情
+                "expression_probablity": 0.5543018579483, // 表情置信度，范围0~1
+                "gender": "male",
+                "gender_probability": 0.99979132413864,
+                "glasses": 0,
+                "glasses_probability": 0.99999964237213,
+                "race": "yellow",
+                "race_probability": 0.99999976158142,
+                "qualities": {
+                    "occlusion": {
+                        "left_eye": 0,
+                        "right_eye": 0,
+                        "nose": 0,
+                        "mouth": 0,
+                        "left_cheek": 0.0064102564938366,
+                        "right_cheek": 0.0057411273010075,
+                        "chin": 0
+                    },
+                    "blur": 1.1886881756684e-10,
+                    "illumination": 141,
+                    "completeness": 1,
+                    "type": {
+                        "human": 0.99935841560364,
+                        "cartoon": 0.00064159056637436
+                    }
+                }
+            }],
+            "log_id": 2493878179101621
+        };
+        // var url = 'https://aip.baidubce.com/rest/2.0/face/v2/detect?access_token=24.f9ba9c5241b67688bb4adbed8bc91dec.2592000.1485570332.282335-8574074';
+
+        // jQuery.post(url, {
+        //     image: canvas.toDataURL('image/png').replace('data:image/jpg;base64,', ''),
+        //     max_face_num: 1,
+        //     face_fields: 'age,beauty,expression,faceshape,gender,glasses,landmark,race,qualities'
+        // }).done(function(rs) {
+        //     rs = JSON.parse(rs);
+
+        //     console.log(rs);
+
+        //     uploaded.src = rs.path;
+        // }).fail(function(err) {
+        //     console.log(err);
+        // });
+    }, false);
+    // getToken()
+
+    function getToken() {
+        var url = 'https://aip.baidubce.com/oauth/2.0/token';
+        jQuery.get(url, {
+            grant_type: 'client_credentials',
+            client_id: 'ecfc82913a134851b654f5c6ac6b7ef0',
+            client_secret: '019e4f9773e248fb8677e19e7a62053d'
+        }).done(function(rs) {
+
+            console.log(rs);
+
+        }).fail(function(err) {
+            console.log(err);
+        });
+    }
+</script>
+
+<script>
+    // var data = image.split(',')[1];
+    // data = window.atob(data);
+    // var ia = new Unit8Array(data.length);
+    // for (var i = 0; i < data.length; i++) {
+    //     ia[i] = data.charCodeAt(i);
+    // }
+    // var blob = new Blob([ia], {
+    //     type: 'image/png'
+    // });
+    // console.log('blob finished')
+</script>
+
+</html>
