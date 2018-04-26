@@ -2,7 +2,25 @@ function formatNumber (n) {
   const str = n.toString()
   return str[1] ? str : `0${str}`
 }
-
+export function request(options) {
+  return new Promise((resolve, reject) => {
+    wx.request({
+      url: options.url,
+      method: options.method || 'get',
+      data: options.data || {},
+      // dataType: options.dataType || 'json',
+      // header: {
+      //   'content-type': 'application/x-www-form-urlencoded'
+      // },
+      success: (res) => {
+        resolve(res)
+      },
+      fail: (res) => {
+        reject(res)
+      }
+    })
+  })
+}
 export function formatTime (date) {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
