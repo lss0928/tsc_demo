@@ -5,7 +5,7 @@ const app = new Vue(App)
 app.$mount()
 
 export default {
-  config: {
-    navigationBarTitleText: '衣橱列表'
-  }
+    config: {
+        navigationBarTitleText: '增加分类'
+    }
 }
